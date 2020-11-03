@@ -1,0 +1,27 @@
+{
+  "name": "original-vdom-framework",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "watch": "yarn run build -- --watch"
+  },
+  "repository": "https://github.com/Kudoas/original-vdom-framework",
+  "author": "<sakanactor624@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "ts-loader": "^5.2.1",
+    "tslint": "^5.11.0",
+    "tslint-config-prettier": "^1.15.0",
+    "tslint-config-standard": "^8.0.1",
+    "typescript": "^3.1.2",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2"
+  },
+  "tslint": {
+    "extends": [
+      "tslint-config-standard",
+      "tslint-config-prettier"
+    ]
+  }
+}
