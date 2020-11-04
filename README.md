@@ -1,10 +1,20 @@
 # Original virtual DOM framework
 
-## view
+## Tasks
+
+### View
 
 - [x] 仮想DOMツリーを作成する
-- [ ] 仮想DOMからリアルDOMに反映する
-- [ ] 差分検知
+- [x] 仮想DOMからリアルDOMに反映する
+- [x] 差分検知
+
+### Action
+
+- [ ] Viewなどから呼ばれるイベントで唯一Storeを更新する
+
+### Controller
+
+- [ ] ActionでStoreが更新されたらViewの更新処理を実行する
 
 ## References
 
