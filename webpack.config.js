@@ -1,3 +1,6 @@
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const path = require("path");
+
 module.exports = {
   mode: "development",
   devtool: "inline-source-map",
@@ -11,4 +14,10 @@ module.exports = {
   module: {
     rules: [{ test: /\.ts/, loader: "ts-loader" }],
   },
+  devServer: {
+    contentBase: path.join(__dirname, "dist"),
+    compress: true,
+    port: 9000,
+  },
+  plugins: [new HtmlWebpackPlugin({ template: "index.html" })],
 };
