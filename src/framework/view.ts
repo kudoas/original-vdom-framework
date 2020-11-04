@@ -40,6 +40,7 @@ export const createElement = (node: NodeType): HTMLElement | Text => {
   const el = document.createElement(node.nodeName);
   setAttributes(el, node.attributes);
   node.children.forEach((child) => el.appendChild(createElement(child)));
+  return el;
 };
 
 const isVNode = (node: NodeType): node is VNode => {
@@ -119,20 +120,22 @@ export const updateElement = (
   newNode: NodeType,
   index = 0
 ) => {
+  // oldNodeがない場合は新しいNodeを作成する
   if (!oldNode) {
     parent.appendChild(createElement(newNode));
     return;
   }
 
+  // newNodeがない場合は削除されたと判断し、そのNodeを削除する
   const target = parent.childNodes[index];
-
   if (!newNode) {
     parent.removeChild(target);
     return;
   }
 
-  const changedType = hasChanged(oldNode, newNode);
-  switch (changedType) {
+  // 差分検知し、パッチ処理（変更箇所だけ反映）を行う
+  const changeType = hasChanged(oldNode, newNode);
+  switch (changeType) {
     case ChangedType.Type:
     case ChangedType.Text:
     case ChangedType.Node:
@@ -143,16 +146,17 @@ export const updateElement = (
       return;
     case ChangedType.Attr:
       updateAttributes(
-        target as HTMLElement,
+        target as HTMLInputElement,
         (oldNode as VNode).attributes,
         (newNode as VNode).attributes
       );
       return;
   }
 
+  // 子要素の差分検知・リアルDOM反映を再帰的に実行する
   if (isVNode(oldNode) && isVNode(newNode)) {
     for (let i = 0; i < newNode.children.length || i < oldNode.children.length; i++) {
-      updateElement(target as HTMLElement, oldNode.children[i], newNode.children[i]);
+      updateElement(target as HTMLElement, oldNode.children[i], newNode.children[i], i);
     }
   }
 };
