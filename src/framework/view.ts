@@ -1,14 +1,3 @@
-/** image */
-/**
-input h(): h("h1", {class: "title"}, "仮想DOM実践入門")
-output vdom: 
-  {
-    nodeName: "h1",
-    attributes: { class: "title", "onclick": funcition() },
-    children: "仮想DOM実践入門"
-  }
-*/
-
 type NodeType = VNode | string | number;
 type Attributes = { [key: string]: string | Function };
 
