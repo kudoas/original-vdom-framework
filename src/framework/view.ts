@@ -55,7 +55,7 @@ const isEventAttr = (attr: string): boolean => {
 };
 
 /**　差分検知 */
-enum ChangedType {
+export enum ChangedType {
   /** no diff */
   None,
 
@@ -75,7 +75,7 @@ enum ChangedType {
   Attr,
 }
 
-const hasChanged = (a: NodeType, b: NodeType): ChangedType => {
+export const hasChanged = (a: NodeType, b: NodeType): ChangedType => {
   // different type
   if (typeof a != typeof b) {
     return ChangedType.Type;

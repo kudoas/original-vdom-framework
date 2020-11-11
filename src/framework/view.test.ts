@@ -1,11 +1,10 @@
-import { h, createElement } from "./view";
+import { h, createElement, hasChanged, ChangedType } from "./view";
 
 test("Convert to vdom", () => {
   const output = h("h1", { id: "counter", class: "title" }, "仮想DOM実践入門");
   const expected = {
     nodeName: "h1",
     attributes: { id: "counter", class: "title" },
-    // @ts-ignore
     children: ["仮想DOM実践入門"],
   };
   expect(output).toStrictEqual(expected);
@@ -77,4 +76,9 @@ test("Convert to nested real dom", () => {
   expected.appendChild(p);
 
   expect(output).toStrictEqual(expected);
+});
+
+test("NodeType has changed", () => {
+  const output = hasChanged(h("h1", {}, "text"), h("p", {}, "text"));
+  expect(output).toEqual(ChangedType.Node);
 });
