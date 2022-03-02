@@ -75,25 +75,25 @@ export enum ChangedType {
   Attr,
 }
 
-export const hasChanged = (a: NodeType, b: NodeType): ChangedType => {
+export const hasChanged = (oldNode: NodeType, newNode: NodeType): ChangedType => {
   // different type
-  if (typeof a != typeof b) {
+  if (typeof oldNode != typeof newNode) {
     return ChangedType.Type;
   }
 
   // different string
-  if (!isVNode(a) && a !== b) {
+  if (!isVNode(oldNode) && oldNode !== newNode) {
     return ChangedType.Text;
   }
 
-  if (isVNode(a) && isVNode(b)) {
-    if (a.nodeName != b.nodeName) {
+  if (isVNode(oldNode) && isVNode(newNode)) {
+    if (oldNode.nodeName != newNode.nodeName) {
       return ChangedType.Node;
     }
-    if (a.attributes.value !== b.attributes.value) {
+    if (oldNode.attributes.value !== newNode.attributes.value) {
       return ChangedType.Value;
     }
-    if (JSON.stringify(a.attributes) !== JSON.stringify(b.attributes)) {
+    if (JSON.stringify(oldNode.attributes) !== JSON.stringify(newNode.attributes)) {
       return ChangedType.Attr;
     }
   }
